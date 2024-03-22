@@ -109,3 +109,39 @@ def agregar_tarea():
         print("ID de tarea inválido.")  
    
 
+# Implementar funcion para editar una tarea:   
+def editar_tarea(id_tarea):
+  """
+  Función para editar una tarea.
+
+  Parámetros:
+    id_tarea: El ID de la tarea a editar.
+
+  Retorno:
+    None.
+  """
+
+  # Obtener la tarea a editar
+  try:
+    tarea = tareas[id_tarea]
+  except IndexError:
+    print(f"ID de tarea inválido: {id_tarea}")
+    return
+
+  # Solicitar la nueva descripción y fecha límite
+  nueva_descripcion = input("Ingrese la nueva descripción de la tarea: ")
+  nueva_fecha_limite = input("Ingrese la nueva fecha límite (formato YYYY-MM-DD): ")
+
+  # Validar la fecha límite
+  try:
+    datetime.strptime(nueva_fecha_limite, "%Y-%m-%d")
+  except ValueError:
+    print("Fecha límite inválida. Intente de nuevo.")
+    return
+
+  # Actualizar la información de la tarea
+  tarea["descripcion"] = nueva_descripcion
+  tarea["fecha_limite"] = datetime.strptime(nueva_fecha_limite, "%Y-%m-%d")
+
+  # Mostrar un mensaje de confirmación
+  print(f"Tarea con ID {id_tarea} actualizada correctamente.")
